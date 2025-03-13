@@ -2,9 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n/context";
 
 export function FloatingContact() {
   const [, setLocation] = useLocation();
+  const { t } = useLanguage();
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -35,7 +37,7 @@ export function FloatingContact() {
           onClick={() => setLocation("/contact")}
         >
           <Mail className="h-5 w-5" />
-          <span>Contact Sales - Get Lowest Price</span>
+          <span className="text-sm sm:text-base">{t('contact.button')}</span>
           {/* Pulse effect */}
           <span className="absolute -inset-1 rounded-full animate-ping bg-primary/20" />
         </Button>
