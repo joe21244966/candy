@@ -46,29 +46,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Products Section */}
-      <section className="py-16 px-4">
+      {/* Testimonials Section - Moved before products */}
+      <Testimonials />
+
+      {/* Products Section with gradient transition */}
+      <section className="py-16 px-4 bg-gradient-to-b from-muted/20 to-background">
         <div className="max-w-screen-xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {products.map((product) => (
               <div 
                 key={product.id} 
-                className="aspect-square rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+                className="aspect-square rounded-lg overflow-hidden hover:shadow-lg transition-shadow bg-white"
               >
-                <img
-                  src={product.image}
-                  alt={`Product ${product.id}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                />
+                {/* Image with blur-up loading */}
+                <div className="relative w-full h-full">
+                  {/* Blur placeholder */}
+                  <div className="absolute inset-0 bg-muted animate-pulse" />
+                  <img
+                    src={product.image}
+                    alt={`Product ${product.id}`}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 relative z-10"
+                    loading="lazy"
+                    onLoad={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.opacity = '1';
+                    }}
+                    style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
+                  />
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Testimonials Section */}
-      <Testimonials />
     </div>
   );
 }

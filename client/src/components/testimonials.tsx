@@ -43,6 +43,45 @@ const testimonials = [
       zh: "首席执行官"
     }
   },
+  {
+    name: "Sophie Kim",
+    company: "Korean Sweets Distribution",
+    image: "https://i.pravatar.cc/150?u=4",
+    text: {
+      en: "Excellent product quality and timely delivery. Our Korean market loves these candies.",
+      zh: "产品质量优秀，交付及时。韩国市场非常喜欢这些糖果。"
+    },
+    role: {
+      en: "Operations Director",
+      zh: "运营总监"
+    }
+  },
+  {
+    name: "Ahmed Hassan",
+    company: "Middle East Confectionery",
+    image: "https://i.pravatar.cc/150?u=5",
+    text: {
+      en: "The halal certification and product quality make them our top choice for confectionery.",
+      zh: "清真认证和产品质量使他们成为我们糖果供应的首选。"
+    },
+    role: {
+      en: "Regional Manager",
+      zh: "区域经理"
+    }
+  },
+  {
+    name: "Lisa Wong",
+    company: "Asia Pacific Trading",
+    image: "https://i.pravatar.cc/150?u=6",
+    text: {
+      en: "Outstanding service and product variety. Perfect for our diverse Asian markets.",
+      zh: "出色的服务和丰富的产品种类。完全满足我们亚洲市场的多样化需求。"
+    },
+    role: {
+      en: "Procurement Director",
+      zh: "采购总监"
+    }
+  }
 ];
 
 export function Testimonials() {
@@ -55,7 +94,7 @@ export function Testimonials() {
           <h2 className="text-3xl font-bold mb-4">{t('testimonials.title')}</h2>
           <p className="text-muted-foreground">{t('testimonials.subtitle')}</p>
         </div>
-        
+
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
