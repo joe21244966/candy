@@ -22,6 +22,8 @@ const translations = {
     'product.shelfLife': 'Shelf Life',
     'product.certifications': 'Certifications',
     'product.getPrice': 'Get Lowest Price',
+    'testimonials.title': 'What Our Clients Say',
+    'testimonials.subtitle': 'Trusted by businesses worldwide',
   },
   zh: {
     'nav.home': '首页',
@@ -35,6 +37,8 @@ const translations = {
     'product.shelfLife': '保质期',
     'product.certifications': '认证',
     'product.getPrice': '获取最低价',
+    'testimonials.title': '客户评价',
+    'testimonials.subtitle': '来自全球客户的信任',
   },
 };
 
@@ -50,7 +54,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const t = (key: string): string => {
-    return translations[language][key] || key;
+    return translations[language][key as keyof typeof translations['en']] || key;
   };
 
   return (

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ProductCard } from "@/components/product-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/lib/i18n/context";
+import { Testimonials } from "@/components/testimonials";
 import type { Product } from "@shared/schema";
 
 const CANDY_TYPES = {
@@ -119,6 +120,9 @@ export default function Home() {
           </Tabs>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <Testimonials />
     </div>
   );
 }
