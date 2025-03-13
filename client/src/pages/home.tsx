@@ -37,7 +37,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent rounded-full blur-3xl" />
               <img
-                src={products[0].image}
+                src="https://images.unsplash.com/photo-1582058091505-f87a2e55a40f"
                 alt="Featured Product"
                 className="relative rounded-lg shadow-2xl w-full h-[400px] object-cover"
               />
