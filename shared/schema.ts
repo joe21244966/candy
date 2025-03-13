@@ -8,12 +8,14 @@ export const products = pgTable("products", {
   description: text("description").notNull(),
   price: text("price").notNull(),
   image: text("image").notNull(),
-  type: text("type").notNull(), // 'candy' or 'toy'
-  subtype: text("subtype"), // For candy: 'chocolate', 'gummy', 'hard_candy', 'lollipop', etc.
+  subtype: text("subtype").notNull(), // 'chocolate', 'gummy', 'hard_candy', 'lollipop', 'toffee', 'cotton_candy', 'jelly_beans'
   minOrder: text("min_order").default("1000 pcs"), // Minimum order quantity
   packaging: text("packaging"), // Packaging information
   inStock: boolean("in_stock").default(true),
   seoKeywords: text("seo_keywords"), // SEO keywords
+  ingredients: text("ingredients"), // Main ingredients
+  shelfLife: text("shelf_life"), // Product shelf life
+  certification: text("certification"), // Product certifications (FDA, HACCP, etc.)
 });
 
 export const contacts = pgTable("contacts", {
