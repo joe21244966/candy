@@ -19,7 +19,7 @@ export default function Contact() {
   const productId = searchParams.get("product");
 
   const { data: product } = useQuery<Product>({
-    queryKey: productId ? [`/api/product/${productId}`] : null,
+    queryKey: productId ? [`/api/product/${productId}`] : [],
     enabled: !!productId,
   });
 
@@ -28,8 +28,13 @@ export default function Contact() {
     defaultValues: {
       name: "",
       email: "",
+      company: "",
+      position: "",
+      country: "",
       message: "",
       productId: productId ? Number(productId) : undefined,
+      purchaseQuantity: "",
+      contactTime: "",
     },
   });
 
@@ -40,8 +45,8 @@ export default function Contact() {
     },
     onSuccess: () => {
       toast({
-        title: "Success!",
-        description: "Your message has been sent. We'll get back to you soon!",
+        title: "Inquiry Submitted Successfully!",
+        description: "Our sales team will contact you within 24 hours.",
       });
       form.reset();
       setLocation("/");
@@ -50,69 +55,150 @@ export default function Contact() {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: "Failed to submit inquiry. Please try again.",
       });
     },
   });
 
   return (
     <div className="min-h-screen p-8">
-      <div className="max-w-xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
-        
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-4xl font-bold text-center mb-8">Business Inquiry</h1>
+
         {product && (
-          <div className="mb-8 p-4 bg-muted rounded-lg">
-            <h2 className="font-semibold">Inquiring about:</h2>
-            <p>{product.name} - {product.price}</p>
+          <div className="mb-8 p-6 bg-muted rounded-lg">
+            <h2 className="font-semibold text-xl mb-4">Product Information:</h2>
+            <div className="grid gap-2">
+              <p><span className="font-medium">Product:</span> {product.name}</p>
+              <p><span className="font-medium">Price Range:</span> {product.price}</p>
+              <p><span className="font-medium">MOQ:</span> {product.minOrder}</p>
+              <p><span className="font-medium">Packaging:</span> {product.packaging}</p>
+            </div>
           </div>
         )}
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Your name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Contact Name*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your full name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="your@email.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Business Email*</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="your@company.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="company"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company Name*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your company name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="position"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Job Position*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your role in the company" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Country/Region*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your country" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="purchaseQuantity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Expected Purchase Quantity</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., 1000 kg or 5000 pcs" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message</FormLabel>
+                  <FormLabel>Inquiry Details*</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Your message" {...field} />
+                    <Textarea 
+                      placeholder="Please describe your specific requirements, including quantity, target price, delivery time, etc." 
+                      className="min-h-[150px]"
+                      {...field} 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={mutation.isPending}>
-              {mutation.isPending ? "Sending..." : "Send Message"}
+            <FormField
+              control={form.control}
+              name="contactTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Preferred Contact Time</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., Mon-Fri 9:00-18:00 EST" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full" size="lg" disabled={mutation.isPending}>
+              {mutation.isPending ? "Submitting..." : "Submit Inquiry"}
             </Button>
           </form>
         </Form>
